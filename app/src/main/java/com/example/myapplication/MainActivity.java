@@ -8,6 +8,7 @@ import android.view.View;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private ShapeableImageView asteroid3;
     final int DELAY = 1000;
     private Timer timer = new Timer();
-
+    private ShapeableImageView[][]myImages;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startTimer();
+
         findViews();
         left_BTN.setOnClickListener(view -> {
             moveCar(-1);
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         right_BTN.setOnClickListener(view -> {
             moveCar(1);
         });
+        //startTimer();
     }
 
     private void moveCar(int direction) {
@@ -75,24 +77,49 @@ public class MainActivity extends AppCompatActivity {
     private void startTimer() {
         startTime = System.currentTimeMillis();
         timer = new Timer();
+        while(true){
+
         timer.scheduleAtFixedRate(
                 new TimerTask() {
                     @Override
                     public void run() {
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                asteroid3.setVisibility(View.INVISIBLE);
+                               /* for (int i = 0; i < 5; i++) {
+                                    Random random=new Random();
+                                    int num=random.nextInt(3);
+                                    myImages[num][i].setVisibility(View.VISIBLE);
+                                }*/
                             }
                         });
                     }
                 }
                 , DELAY, DELAY);
+        }
     }
 
     private void findViews() {
+      myImages=new ShapeableImageView[5][3];
+       myImages[0][0]=findViewById(R.id.m1);
+
+        myImages[0][1]=findViewById(R.id.m2);
+        myImages[0][2]=findViewById(R.id.m3);
+        myImages[1][0]=findViewById(R.id.m4);
+        myImages[1][2]=findViewById(R.id.m6);
+        myImages[2][0]=findViewById(R.id.m7);
+        myImages[2][1]=findViewById(R.id.m8);
+        myImages[2][2]=findViewById(R.id.m9);
+        myImages[3][0]=findViewById(R.id.m10);
+        myImages[3][1]=findViewById(R.id.m11);
+        myImages[3][2]=findViewById(R.id.m12);
+        myImages[4][0]=findViewById(R.id.car1);
+        myImages[4][1]=findViewById(R.id.car2);
+        myImages[4][2]=findViewById(R.id.car3);
         left_BTN = findViewById(R.id.left_BTN);
+        //turn the map invisible
+
+
         right_BTN = findViewById(R.id.right_BTN);
         carPlacementRight = findViewById(R.id.car3);
         carPlacementRight.setVisibility(View.INVISIBLE);
