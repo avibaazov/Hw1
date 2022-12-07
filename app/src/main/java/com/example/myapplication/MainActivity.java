@@ -72,50 +72,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    long startTime = 0;
+       long startTime = 0;
 
     private void startTimer() {
         startTime = System.currentTimeMillis();
         timer = new Timer();
-        while(true){
-
-        timer.scheduleAtFixedRate(
-                new TimerTask() {
+       TimerTask t=new TimerTask() {
+           @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                               /* for (int i = 0; i < 5; i++) {
-                                    Random random=new Random();
-                                    int num=random.nextInt(3);
-                                    myImages[num][i].setVisibility(View.VISIBLE);
-                                }*/
-                            }
-                        });
+                        for (int i = 0; i < 4; i++) {
+
+//                            Random random=new Random();
+//                            int num=random.nextInt(3);
+                            myImages[i][0].setImageResource(R.drawable.meteor);
+
+                        }
                     }
-                }
-                , DELAY, DELAY);
-        }
+                });
+
+
+
+            }
+        };
+       timer.scheduleAtFixedRate(t,1000,1000);
+//
+//            timer.scheduleAtFixedRate(
+//                    new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                               for (int i = 0; i < 5; i++) {
+////                                    Random random=new Random();
+////                                    int num=random.nextInt(3);
+//                                    myImages[0][i].setImageResource(R.drawable.meteor);
+//                                }
+//                                }
+//                            });
+//                        }
+//                    }
+//                    , DELAY, DELAY);
+
     }
 
-    private void findViews() {
-      myImages=new ShapeableImageView[5][3];
-       myImages[0][0]=findViewById(R.id.m1);
 
-        myImages[0][1]=findViewById(R.id.m2);
-        myImages[0][2]=findViewById(R.id.m3);
-        myImages[1][0]=findViewById(R.id.m4);
-        myImages[1][2]=findViewById(R.id.m6);
-        myImages[2][0]=findViewById(R.id.m7);
-        myImages[2][1]=findViewById(R.id.m8);
-        myImages[2][2]=findViewById(R.id.m9);
-        myImages[3][0]=findViewById(R.id.m10);
-        myImages[3][1]=findViewById(R.id.m11);
-        myImages[3][2]=findViewById(R.id.m12);
-        myImages[4][0]=findViewById(R.id.car1);
-        myImages[4][1]=findViewById(R.id.car2);
-        myImages[4][2]=findViewById(R.id.car3);
+    private void findViews() {
+       initViewArray(myImages);
+
         left_BTN = findViewById(R.id.left_BTN);
         //turn the map invisible
 
@@ -129,5 +136,26 @@ public class MainActivity extends AppCompatActivity {
         asteroid1 = findViewById(R.id.m1);
         asteroid2 = findViewById(R.id.m2);
         asteroid3 = findViewById(R.id.m3);
+    }
+
+    private void initViewArray(ShapeableImageView[][] myImages) {
+
+        this.myImages = new ShapeableImageView[5][3];
+        this.myImages[0][0] = findViewById(R.id.m1);
+
+        this.myImages[0][1] = findViewById(R.id.m2);
+        this.myImages[0][2] = findViewById(R.id.m3);
+        this.myImages[1][0] = findViewById(R.id.m4);
+        this.myImages[1][2] = findViewById(R.id.m6);
+
+        this.myImages[2][0] = findViewById(R.id.m7);
+        this.myImages[2][1] = findViewById(R.id.m8);
+        this.myImages[2][2] = findViewById(R.id.m9);
+        this.myImages[3][0] = findViewById(R.id.m10);
+        this.myImages[3][1] = findViewById(R.id.m11);
+        this.myImages[3][2] = findViewById(R.id.m12);
+        this.myImages[4][0] = findViewById(R.id.car1);
+        this.myImages[4][1] = findViewById(R.id.car2);
+        this.myImages[4][2] = findViewById(R.id.car3);
     }
 }
